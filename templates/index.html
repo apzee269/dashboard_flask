@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Plotly Chart</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="color: white;">Overall Analysis</h2>
+    <div style="display: flex;">
+      <div style="width: 33.33%; text-align: center;">
+        <h4 style="color: white;">Contacts Audited</h4>
+        <p style="color: white;">{{contacts_audited}}</p>
+      </div>
+      <div style="width: 33.33%; text-align: center;">
+        <h4 style="color: white;">Adherence %</h4>
+        <p style="color: white;">{{ '%.2f%%' % (adherence_percent*100) }}</p>
+      </div>
+      <div style="width: 33.33%; text-align: center;">
+        <h4 style="color: white;">Deviation %</h4>
+        <p style="color: white;">{{ '%.2f%%' % (deviation_percent*100) }}</p>
+      </div>
+    </div>
+    <div style="width:100%; display:flex;">
+        <div style="width:50%;">
+            <div id="pie"></div>
+            <script>
+                var fig2 = {{ fig2.to_json()|safe }};
+                Plotly.newPlot('pie', fig2.data, fig2.layout, {showSendToCloud: true});
+            </script>
+        </div>
+        <div style="width:50%;">
+            <div id="pie2"></div>
+            <script>
+                var fig3 = {{ fig3.to_json()|safe }};
+                Plotly.newPlot('pie2', fig3.data, fig3.layout, {showSendToCloud: true});
+            </script>
+        </div>
+    </div>
+
+    <div style="width:50%; display:inline-block;">
+        <div id="chart"></div>
+        <script>
+            var fig = {{ fig.to_json()|safe }};
+            Plotly.newPlot('chart', fig.data, fig.layout, {showSendToCloud: true});
+        </script>
+    </div>
+</body>
+</html>
